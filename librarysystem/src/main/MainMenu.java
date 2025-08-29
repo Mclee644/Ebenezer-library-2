@@ -39,11 +39,12 @@ public class MainMenu {
             System.out.println("5. Lend Book");
             System.out.println("6. Return Book");
             System.out.println("7. View Borrowers");
-            System.out.println("8. View Transactions");
+            System.out.println("8. Delete Borrower")
             System.out.println("9. Check Overdue Books");
             System.out.println("10. Search Book by Title");
             System.out.println("11. Sort Books by Title (A–Z)");
-            System.out.println("12. Save & Exit");
+            System.out.println("12. View Transactions");
+            System.out.println("13. Save & Exit");
             System.out.print("Enter choice: ");
 
             String choice = sc.nextLine();
@@ -118,12 +119,15 @@ public class MainMenu {
                     for (int i = 0; i < sortedBooks.size(); i++) System.out.println(sortedBooks.get(i));
                     break;
 
-                case "12": // Save & exit
-                    FileManager.saveBooks(inventory.getBookTree());
+                case "12": //delete borrower
+                    
+                    break;
+                case "13":// Save & exit
+                	FileManager.saveBooks(inventory.getBookTree());
                     FileManager.saveBorrowers(registry.getAllBorrowers());
                     System.out.println("💾 Data saved. Goodbye!");
                     running = false;
-                    break;
+                	break;
 
                 default:
                     System.out.println("⚠ Invalid choice.");
