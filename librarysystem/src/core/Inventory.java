@@ -1,26 +1,34 @@
 package core;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+
 import dsa.MyList;
 import dsa.MyArrayList;
 import dsa.MyBST;
 import dsa.MyStack;
 import dsa.CustomHashMap;
 
-/** Manages all books in the library */
+//Manages all books in the library 
 public class Inventory {
 
     private MyBST<Book> bookTree = new MyBST<>();
     private MyList<Book> recentBooks = new MyArrayList<>();
     private MyStack<Book> removedBooks = new MyStack<>();
+    
+    private String csvFilename = "C:\\Users\\mclee\\Documents\\java\\Ebenezer-library-2\\librarysystem\\bin\\data\\books.csv";
+    private String csvLine;
+    private String csvDelimiter = ",";
 
-    /** Add a book */
+    // Add a book
     public void addBook(Book book) {
         bookTree.insert(book);
         recentBooks.add(book);
         System.out.println("✅ Book added: " + book.getTitle());
     }
 
-    /** Remove a book by ISBN */
+    // Remove a book by ISBN 
     public boolean removeBook(String isbn) {
         Book target = searchBook(isbn);
         if (target != null) {
@@ -33,7 +41,7 @@ public class Inventory {
         return false;
     }
 
-    /** Search a book by ISBN */
+    //Search a book by ISBN
     public Book searchBook(String isbn) {
         MyList<Book> sorted = bookTree.inOrderList();
         for (int i = 0; i < sorted.size(); i++) {
@@ -42,14 +50,29 @@ public class Inventory {
         return null;
     }
 
-    /** List all books sorted by ISBN (in-order BST) */
+    // List all books sorted by ISBN (in-order BST) 
     public MyList<Book> listBooksSorted() {
         MyList<Book> sorted = bookTree.inOrderList();
         for (int i = 0; i < sorted.size(); i++) System.out.println(sorted.get(i));
         return sorted;
     }
-
-    /** List books grouped by category */
+    // list books in csv file
+    public void ReadCSVBooks() {
+    	try(BufferedReader bReader = new BufferedReader(new FileReader(csvFilename))){
+    		while((csvLine = bReader.readLine())!= null) {
+    			String[] values = csvLine.split(csvDelimiter);
+    			for(String value :values) {
+    				System.out.print(value + " | ");
+    			}
+    			System.out.println();
+    			System.out.println();
+    		}
+    	}catch(IOException e) {
+    		e.printStackTrace();
+    	}
+    }
+    
+    // List books grouped by category 
     public void listBooksByCategory() {
         CustomHashMap<MyList<Book>> booksByCategory = getBooksByCategory();
         if (booksByCategory.keySet().size() == 0) {
@@ -64,7 +87,7 @@ public class Inventory {
         }
     }
 
-    /** Get books grouped by category (for reports) */
+    // Get books grouped by category (for reports) 
     public CustomHashMap<MyList<Book>> getBooksByCategory() {
         CustomHashMap<MyList<Book>> map = new CustomHashMap<>();
         MyList<Book> allBooks = bookTree.inOrderList();
@@ -81,7 +104,7 @@ public class Inventory {
         return map;
     }
 
-    /** Return all books as a list */
+    // Return all books as a list
     public MyList<Book> getBookTree() {
         return bookTree.inOrderList();
     }

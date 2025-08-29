@@ -1,8 +1,12 @@
 package main;
 
 import core.*;
-import dsa.MyList;
 import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+
+import dsa.MyList;
 
 public class MainMenu {
 
@@ -15,6 +19,12 @@ public class MainMenu {
     private static Scanner sc = new Scanner(System.in);
 
     public static void main(String[] args) {
+    	
+    	String heading = """
+    			
+    			📚 EBENEZER LIBRARY MANAGEMENT SYSTEM
+    			
+    			""";
 
         // Load saved books & borrowers
         MyList<Book> books = FileManager.loadBooks();
@@ -28,10 +38,12 @@ public class MainMenu {
         overdueMonitor = new OverdueMonitor(registry, 1.0);      // Pass registry & fineRate
         bookSearch = new BookSearch(inventory.getBookTree());    // Already returns MyList<Book>
         new ReportGenerator(tracker, registry, inventory);
+        
 
         boolean running = true;
         while (running) {
-            System.out.println("\n=== 📚 Ebenezer Library Management System ===");
+            //System.out.println("\n=== 📚  Ebenezer Library Management System ===");
+            System.out.println(heading);
             System.out.println("1. List All Books");
             System.out.println("2. Add Book");
             System.out.println("3. Remove Book");
@@ -39,12 +51,13 @@ public class MainMenu {
             System.out.println("5. Lend Book");
             System.out.println("6. Return Book");
             System.out.println("7. View Borrowers");
-            System.out.println("8. Delete Borrower")
+            System.out.println("8. View Transactions");
             System.out.println("9. Check Overdue Books");
             System.out.println("10. Search Book by Title");
             System.out.println("11. Sort Books by Title (A–Z)");
-            System.out.println("12. View Transactions");
+            System.out.println("12. Delete Borrowers");
             System.out.println("13. Save & Exit");
+            System.out.println("");
             System.out.print("Enter choice: ");
 
             String choice = sc.nextLine();
@@ -52,7 +65,8 @@ public class MainMenu {
             switch (choice) {
 
                 case "1": // List all books
-                    inventory.listBooksSorted();   // Use the method we defined
+                   // inventory.listBooksSorted();   
+                    inventory.ReadCSVBooks();
                     break;
 
                 case "2": // Add book
@@ -63,7 +77,7 @@ public class MainMenu {
                     System.out.print("Year: "); int year = Integer.parseInt(sc.nextLine());
                     System.out.print("Publisher: "); String publisher = sc.nextLine();
                     System.out.print("Shelf: "); String shelf = sc.nextLine();
-                    inventory.addBook(new Book(title, author, isbn, category, year, publisher, shelf));
+                    inventory.addBook(new Book(title, author, isbn, category, year, publisher, shelf));          
                     break;
 
                 case "3": // Remove book
@@ -120,7 +134,7 @@ public class MainMenu {
                     break;
 
                 case "12": //delete borrower
-                    
+                    System.out.println("yet to implement");
                     break;
                 case "13":// Save & exit
                 	FileManager.saveBooks(inventory.getBookTree());
@@ -135,5 +149,19 @@ public class MainMenu {
         }
 
         sc.close();
-    }
-}
+    } 
+    public void prompt() {
+        System.out.println("Book Search & Sorting");
+        System.out.println("Borrower Registry");
+        System.out.println("Lending Tracker");
+        System.out.println("Overdue Monitoring");
+        System.out.println("File logging");
+        System.out.println("Reports & Data Analysis");
+    }	
+    
+}   
+
+
+  
+
+
