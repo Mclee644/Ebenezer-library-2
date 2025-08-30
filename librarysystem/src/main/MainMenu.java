@@ -63,9 +63,22 @@ public class MainMenu {
         System.out.println("7. Reports & Data Analysis");
         System.out.print("INPUT: ");
     }	
-   public static void prompt(String inventory) {
-	   System.out.println("\t "+ inventory);
-	   System.out.println("1. ADD BOOK | 2. REMOVE BOOK | 3. LIST BOOKS");
+   public static void prompt(String message) {
+	   
+	   if(message == "BOOK INVENTORY") {
+		   System.out.println("\t "+ message);
+		   System.out.println("1. ADD BOOK | 2. REMOVE BOOK | 3. LIST BOOKS");
+		   
+	   }
+	   else if(message=="1. SEARCH | 2. SORTING") {
+		   
+		   System.out.println("\t "+ message);
+	   }else if(message=="1. BINARY SEARCH | 2. LINEAR SEARCH") {		   
+		   System.out.println("\t "+ message);
+	   }else if (message =="1. BINARY SEARCH | 2. lINEAR SEARCH") {
+		   System.out.println("\t "+ message);
+		   
+	   }
 	   System.out.print("INPUT: ");
        
    }
@@ -80,7 +93,7 @@ public class MainMenu {
         	
         	prompt("BOOK INVENTORY"); //MINI PROMPT
         	String miniChoice = sc.nextLine();
-        	System.out.println("miniChoice "+ miniChoice);
+        	
         	
             switch(miniChoice) {
             case "1": //ADD BOOK
@@ -109,6 +122,38 @@ public class MainMenu {
             break;
 
         case "2": // Book Search & Sorting
+        	prompt("1. SEARCH | 2. SORTING"); //MINI PROMPT
+        	miniChoice = sc.nextLine();
+        	
+        	switch(miniChoice) {
+        	case "1": //SEARCH
+        		
+        		prompt("1. BINARY SEARCH | 2. lINEAR SEARCH"); //MINI PROMPT
+        		String miniChoiceLite = sc.nextLine();
+        		
+        		switch(miniChoiceLite) {
+        		case "1": // BINARY SEARCH
+        			
+        			         			
+        			break;
+        		case "2": // LINEAR SEARCH
+        			
+        			break;
+        			
+        		default:
+        			//PENDING
+        			break;
+        		}
+        		
+        		break;
+        	case "2": //CUSTOME SORT
+        		
+        		break;
+        	
+        	default:
+        		//PENDING
+        		break;
+        	}
         	// Sort books by title
         	MyList<Book> allBooks = inventory.getBookTree();   // Already MyList<Book>
         	MyList<Book> sortedBooks = bookSorter.sortByTitle(allBooks);
