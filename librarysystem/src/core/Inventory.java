@@ -16,12 +16,8 @@ public class Inventory {
     private MyBST<Book> bookTree = new MyBST<>();
     private MyList<Book> recentBooks = new MyArrayList<>();
     private MyStack<Book> removedBooks = new MyStack<>();
-    
-     //String csvFilename = "C:\\Users\\mclee\\Documents\\java\\Ebenezer-library-2\\librarysystem\\src\\data\\books.csv";
-    //private String csvFilename = "..\\..\\bin\\data\\books.csv";
+        
     private String csvFilename = "data\\books.csv";
-    //private String csvFilename = ".\\books.csv";
-    
     private String csvLine;
     private String csvDelimiter = ",";
 
